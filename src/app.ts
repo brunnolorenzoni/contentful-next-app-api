@@ -2,7 +2,7 @@ import express, { Application } from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet';
-import ErrorHandler from './middleware/ErrorHandler';
+import ErrorHandler from './middlewares/ErrorHandler';
 
 class App {
   public app: Application;
