@@ -1,4 +1,6 @@
 import { IProductsRepository } from "repositories/IProductsRepository"
+import { QueryOptions }  from 'contentful-management' 
+import { UnauthorizedError } from '../../helpers/ApiError'
 
 export class GetProductsUseCase {
 
@@ -6,7 +8,16 @@ export class GetProductsUseCase {
     private productsRepository: IProductsRepository
   ){}
 
-  async execute() {
-    return this.productsRepository.findAll()
+  async execute(params: QueryOptions) {
+    try {
+    
+      const { limit, skip, order } = params
+      let { include } = params
+      if(!include) include = 1
+      return this.productsRepository.findAll({ limit, skip, order, include })
+
+    } catch (e: any) {
+      throw new e
+    }
   }
 }

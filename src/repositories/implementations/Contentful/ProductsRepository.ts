@@ -1,14 +1,11 @@
 import { IProductsRepository } from '../../IProductsRepository';
-import { PlainClientAPI }  from 'contentful-management'
+import { PlainClientAPI, QueryOptions }  from 'contentful-management'
+import { ApiError } from '../../../helpers/ApiError'
 
 interface ContentfulRepositoryParams {
   client: PlainClientAPI,
   space: string,
   environment: string
-}
-interface SearchFilters {
-  limit: number,
-  skip: number,
 }
 
 export class ProductsRepository implements IProductsRepository {
@@ -23,15 +20,25 @@ export class ProductsRepository implements IProductsRepository {
     this.environment = environment
   }
   
-  async findAll(filters?: SearchFilters): Promise<any> {
-    const products = await this.client.entry.getMany({
-      environmentId: this.environment,
-      spaceId: this.space,
-      query: {
-        content_type: 'product'
+  async findAll(filters?: QueryOptions): Promise<unknown> {
+    try {
+      const result = await this.client.entry.getMany({
+        environmentId: this.environment,
+        spaceId: this.space,
+        query: {
+          content_type: 'product',
+          ...filters
+        }
+      })
+      return {
+        limit: result.limit,
+        skip: result.skip,
+        total: result.total,
+        data: result.items
       }
-    })
-    console.log(products)
-    return products
+    } catch (e: any) {
+      const error = JSON.parse(e.message)
+      throw new ApiError(error.message, error.status)
+    }
   }
 }
