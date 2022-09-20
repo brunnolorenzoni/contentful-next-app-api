@@ -1,5 +1,5 @@
 import { Product } from "../entities/Product";
 
 export interface IProductsRepository {
-  findAll(): Promise<Product[] | []>;
+  findAll(): Promise<Product[] | [] | [boolean]>;
 }

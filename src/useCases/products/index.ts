@@ -1,15 +1,18 @@
-import { InMemoryProductsRepository } from "../../repositories/implementations/InMemory/ProductsRepository";
+import { ProductsRepository } from "../../repositories/implementations/Contentful/ProductsRepository";
 import { GetProductsUseCase } from "./GetProducts";
 import { CreateProductUseCase } from "./CreateProduct";
 
-const inMemoryProductsRepository = new InMemoryProductsRepository()
+import Contenful from '../../lib/Contenful'
+
+const { client } = new Contenful({ space: 'j9ffre4lp502' })
+const productsRepository = new ProductsRepository(client)
 
 const getProductsUseCase = new GetProductsUseCase(
-  inMemoryProductsRepository,
+  productsRepository,
 )
 
 const createProductUseCase = new CreateProductUseCase(
-  inMemoryProductsRepository,
+  productsRepository,
 )
 
 export { getProductsUseCase, createProductUseCase }

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 
 if(process.env.NODE_ENV) {
   dotenv.config({
-    path: `./.${process.env.NODE_ENV.trim()}.env`
+    path: `./.${process.env.NODE_ENV}.env`
   })
 } else {
   throw new Error("environment not set");

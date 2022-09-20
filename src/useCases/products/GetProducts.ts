@@ -6,7 +6,7 @@ export class GetProductsUseCase {
     private productsRepository: IProductsRepository
   ){}
 
-  async execute() : Promise<[]> {
-    return []
+  async execute() {
+    return this.productsRepository.findAll()
   }
 }
