@@ -1,4 +1,4 @@
-import { createClient, ClientAPI } from 'contentful-management'
+import { createClient, PlainClientAPI } from 'contentful-management'
 
 interface ClientParams {
   space: string, 
@@ -9,7 +9,7 @@ interface ClientParams {
 
 export default class Contenful {
 
-  readonly client: ClientAPI;
+  readonly client: PlainClientAPI;
   private acessToken: string = process.env.CONTENTFUL_MANAGEMENT_ACCESS_TOKEN;
 
   constructor (options?: ClientParams) {
@@ -23,7 +23,7 @@ export default class Contenful {
     this.client = createClient({
       ...options,
       accessToken: options && options.accessToken ? options.accessToken : this.acessToken,
-    })
+    }, { type: 'plain' })
 
   }
 

@@ -4,8 +4,8 @@ import { CreateProductUseCase } from "./CreateProduct";
 
 import Contenful from '../../lib/Contenful'
 
-const { client } = new Contenful({ space: 'j9ffre4lp502' })
-const productsRepository = new ProductsRepository(client)
+const { client } = new Contenful()
+const productsRepository = new ProductsRepository({client, space: 'j9ffre4lp502', environment: 'master' })
 
 const getProductsUseCase = new GetProductsUseCase(
   productsRepository,
