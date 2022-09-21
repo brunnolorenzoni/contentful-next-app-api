@@ -1,6 +1,5 @@
 import { IProductsRepository } from "repositories/IProductsRepository"
 import { QueryOptions }  from 'contentful-management' 
-import { UnauthorizedError } from '../../helpers/ApiError'
 
 export class GetProductsUseCase {
 
