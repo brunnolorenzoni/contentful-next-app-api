@@ -3,7 +3,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet';
 import routes from './routes'
-import ErrorHandler from './middlewares/ErrorHandler';
+import errorHandler from './middlewares/ErrorHandler';
 
 class App {
   public app: Application;
@@ -12,6 +12,7 @@ class App {
     this.app = express()
     this.middlewares()
     this.routing()
+    this.onError()
   }
   
   private middlewares (): void {
@@ -19,7 +20,6 @@ class App {
     this.app.use(morgan('tiny'))
     this.app.use(express.json())
     this.app.use(helmet());
-    this.app.use(ErrorHandler)
   }
 
 
@@ -31,9 +31,13 @@ class App {
         server: 'UP'
       });
     });
+  }
+
+  private onError () : void {
     this.app.all('*', function(req, res){
       res.status(404).send('Not Found')
     });
+    this.app.use(errorHandler)
   }
 }
 
