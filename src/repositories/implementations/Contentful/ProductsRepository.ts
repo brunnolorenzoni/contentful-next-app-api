@@ -1,6 +1,7 @@
 import { IProductsRepository } from '../../IProductsRepository';
 import { PlainClientAPI, QueryOptions }  from 'contentful-management'
 import { ApiError } from '../../../helpers/ApiError'
+import { Product } from 'entities/Product';
 
 interface ContentfulRepositoryParams {
   client: PlainClientAPI,
@@ -36,6 +37,67 @@ export class ProductsRepository implements IProductsRepository {
         total: result.total,
         data: result.items
       }
+    } catch (e: any) {
+      const error = JSON.parse(e.message)
+      throw new ApiError(error.message, error.status)
+    }
+  }
+
+  async create(product: Product): Promise<unknown> {
+
+    console.log(product)
+    return true
+
+    const language = "en-US"
+
+    const data = {
+      fields: {
+        productName: {
+          [language]: 'Hello Word'
+        },
+        slug: {
+          [language]: 'Hello Word'
+        },
+        productDescription: {
+          [language]: 'Hello Word'
+        },
+        sizetypecolor: {
+          [language]: 'Hello Word'
+        },
+        image: {
+          [language]: 'Hello Word'
+        },
+        tags: {
+          [language]: 'Hello Word'
+        },
+        categories: {
+          [language]: 'Hello Word'
+        },
+        price: {
+          [language]: 'Hello Word'
+        },
+        brand: {
+          [language]: 'Hello Word'
+        },
+        quantity: {
+          [language]: 'Hello Word'
+        },
+        sku: {
+          [language]: 'Hello Word'
+        },
+        website: {
+          [language]: 'Hello Word'
+        },
+      }
+    }
+
+    
+
+
+    try {
+      return await this.client.entry.create({
+        contentTypeId: 'product'
+      }, data)
     } catch (e: any) {
       const error = JSON.parse(e.message)
       throw new ApiError(error.message, error.status)

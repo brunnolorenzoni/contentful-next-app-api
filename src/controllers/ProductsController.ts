@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { CreateProductUseCase } from 'useCases/products/CreateProduct'
-import { GetProductsUseCase } from '../useCases/products/GetProducts'
+import { GetProductsUseCase } from 'useCases/products/GetProducts'
+import { ICreateProdutcRequestDTO } from 'interfaces/products/dto' 
 
 export class ProductController {
 
@@ -25,8 +26,8 @@ export class ProductController {
 
   async create (req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const { slug } = req.body
-      const result = await this.createProductUseCase.execute({ slug })
+      const body : ICreateProdutcRequestDTO = req.body
+      const result = await this.createProductUseCase.execute(body)
       return res.json({ products: result }).status(201)
     } catch (e) {
       next(e)
