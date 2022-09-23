@@ -9,9 +9,7 @@ export class CreateProductUseCase {
   ){}
 
   async execute(data: ICreateProdutcRequestDTO) {
-    
     const product = new Product(data)
-    await this.productsRepository.create(product)
-    return true
+    return await this.productsRepository.create(product)
   }
 }

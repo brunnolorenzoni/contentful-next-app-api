@@ -45,60 +45,49 @@ export class ProductsRepository implements IProductsRepository {
 
   async create(product: Product): Promise<unknown> {
 
-    console.log(product)
-    return true
-
     const language = "en-US"
 
     const data = {
       fields: {
         productName: {
-          [language]: 'Hello Word'
+          [language]: product.productName
         },
         slug: {
-          [language]: 'Hello Word'
+          [language]: product.slug
         },
         productDescription: {
-          [language]: 'Hello Word'
+          [language]: product.productDescription
         },
         sizetypecolor: {
-          [language]: 'Hello Word'
-        },
-        image: {
-          [language]: 'Hello Word'
+          [language]: product.sizetypecolor
         },
         tags: {
-          [language]: 'Hello Word'
-        },
-        categories: {
-          [language]: 'Hello Word'
+          [language]: product.tags
         },
         price: {
-          [language]: 'Hello Word'
-        },
-        brand: {
-          [language]: 'Hello Word'
+          [language]: product.price
         },
         quantity: {
-          [language]: 'Hello Word'
+          [language]: product.quantity
         },
         sku: {
-          [language]: 'Hello Word'
+          [language]: product.sku
         },
         website: {
-          [language]: 'Hello Word'
+          [language]: product.website
         },
       }
     }
-
     
-
-
     try {
-      return await this.client.entry.create({
-        contentTypeId: 'product'
+      return await this.client.entry.createWithId({
+        entryId: product.id,
+        contentTypeId: 'product',
+        environmentId: 'master',
+        spaceId: 'j9ffre4lp502'
       }, data)
     } catch (e: any) {
+      console.log(e)
       const error = JSON.parse(e.message)
       throw new ApiError(error.message, error.status)
     }

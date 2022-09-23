@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
 import { Brand } from './Brand';
 import { Category } from './Category';
 import { Image } from './Image';
@@ -12,9 +12,9 @@ export class Product {
   public image: Image[]
   public tags: [string]
   public categories: Category[]
-  public price: string
+  public price: number
   public brand: Brand
-  public quantity: string
+  public quantity: number
   public sku: string
   public website: string
 
@@ -22,7 +22,7 @@ export class Product {
     Object.assign(this, props);
 
     if (!id) {
-      this.id = uuid();
+      this.id = v4();
     }
   }
 }

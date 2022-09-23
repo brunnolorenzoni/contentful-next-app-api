@@ -6,9 +6,9 @@ export interface ICreateProdutcRequestDTO {
   image?: [string],
   tags: [string],
   categories?: [string],
-  price: string,
+  price: number,
   brand?: string,
-  quantity: string,
+  quantity: number,
   sku: string,
   website: string,
 }

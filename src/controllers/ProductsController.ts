@@ -28,7 +28,7 @@ export class ProductController {
     try {
       const body : ICreateProdutcRequestDTO = req.body
       const result = await this.createProductUseCase.execute(body)
-      return res.json({ products: result }).status(201)
+      return res.json(result).status(201)
     } catch (e) {
       next(e)
     }
