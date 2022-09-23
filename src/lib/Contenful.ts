@@ -20,6 +20,12 @@ export default class Contenful {
       }
     }
 
+    if(options && !options.accessToken) {
+      if(!this.acessToken) {
+        throw new Error("CONTENTFUL ACCESS TOKEN NOT DEFINED IN ENV VARIABLES");
+      }
+    }
+
     this.client = createClient({
       ...options,
       accessToken: options && options.accessToken ? options.accessToken : this.acessToken,
