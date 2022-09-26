@@ -19,6 +19,7 @@ class App {
     this.app.use(cors())
     this.app.use(morgan('tiny'))
     this.app.use(express.json())
+    this.app.use(express.urlencoded({ limit: '5mb', extended: true, type: 'multipart/form-data' }))
     this.app.use(helmet());
   }
 

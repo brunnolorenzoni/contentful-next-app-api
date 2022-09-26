@@ -1,9 +1,9 @@
 import { v4 } from 'uuid'
-import { Image } from './Image';
+import { Asset } from './Asset';
 export class Brand {
   public readonly id: string;
   public companyName: string
-  public logo: Image
+  public logo: Asset
   public companyDescription: string
   public website: string
   public twitter: string

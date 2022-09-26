@@ -1,9 +1,9 @@
 import { v4 } from 'uuid'
-import { Image } from "./Image"
+import { Asset } from './Asset';
 export class Category {
   public readonly id: string;
   public title: string
-  public image: Image
+  public image: Asset
   public categoryDescription: string
   public slug: string
 

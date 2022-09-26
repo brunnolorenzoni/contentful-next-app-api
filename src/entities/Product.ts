@@ -1,7 +1,7 @@
 import { v4 } from 'uuid'
+import { Asset } from './Asset';
 import { Brand } from './Brand';
 import { Category } from './Category';
-import { Image } from './Image';
 
 export class Product {
   public readonly id: string;
@@ -9,7 +9,7 @@ export class Product {
   public slug: string
   public productDescription: string
   public sizetypecolor: string
-  public image: Image[]
+  public image: Asset[]
   public tags: [string]
   public categories: Category[]
   public price: number
