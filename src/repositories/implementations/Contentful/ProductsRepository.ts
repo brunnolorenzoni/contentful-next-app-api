@@ -1,5 +1,5 @@
 import { IProductsRepository } from '../../IProductsRepository';
-import { PlainClientAPI, QueryOptions }  from 'contentful-management'
+import { PlainClientAPI, QueryOptions, EntryProps }  from 'contentful-management'
 import { ApiError } from '../../../helpers/ApiError'
 import { Product } from 'entities/Product';
 
@@ -47,7 +47,7 @@ export class ProductsRepository implements IProductsRepository {
 
     const language = "en-US"
 
-    const data = {
+    const data : Omit<EntryProps, 'sys'> = {
       fields: {
         productName: {
           [language]: product.productName
@@ -76,6 +76,18 @@ export class ProductsRepository implements IProductsRepository {
         website: {
           [language]: product.website
         },
+      }
+    }
+
+    if(product.image && product.image.length) {
+      data.fields.image = {
+        [language]: product.image.map((img) => ({
+          sys: {
+            id: img, 
+            linkType: "Asset", 
+            type: "Link"
+          }
+        }))
       }
     }
     
