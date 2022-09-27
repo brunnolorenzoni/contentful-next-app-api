@@ -67,6 +67,12 @@ export class AssetsRepository implements IAssetsRepository {
         environmentId: this.environment
       }, assetContentful)
 
+      await this.client.asset.publish({
+        assetId: asset.id,
+        environmentId: this.environment,
+        spaceId: this.space,
+      }, process)
+
       return process
     } catch (e: any) {
       console.log(e)
