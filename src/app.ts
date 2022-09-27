@@ -16,10 +16,10 @@ class App {
   }
   
   private middlewares (): void {
-    this.app.use(cors())
-    this.app.use(morgan('tiny'))
     this.app.use(express.json())
-    this.app.use(express.urlencoded({ limit: '5mb', extended: true, type: 'multipart/form-data' }))
+    this.app.use(express.urlencoded({ limit: '5mb', extended: true }))
+    this.app.use(cors())
+    this.app.use(morgan('dev'))
     this.app.use(helmet());
   }
 

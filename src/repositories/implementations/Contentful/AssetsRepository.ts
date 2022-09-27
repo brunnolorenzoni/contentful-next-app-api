@@ -2,6 +2,7 @@ import { IAssetsRepository } from '../../IAssetsRepository';
 import { PlainClientAPI }  from 'contentful-management'
 import { ApiError } from '../../../helpers/ApiError'
 import { Asset } from 'entities/Asset';
+import { IFileDTO } from 'interfaces/assets/dto';
 
 interface ContentfulRepositoryParams {
   client: PlainClientAPI,
@@ -21,7 +22,7 @@ export class AssetsRepository implements IAssetsRepository {
     this.environment = environment
   }
   
-  async create(asset: Asset, file: ArrayBuffer): Promise<unknown> {
+  async create(asset: Asset, file: IFileDTO): Promise<unknown> {
 
     const language = "en-US"
     
