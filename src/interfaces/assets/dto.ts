@@ -1,7 +1,6 @@
 export interface ICreateAssetRequestDTO {
   title: string
   description: string
-  fileName: string
 }
 export interface IFileDTO {
   fieldname: string

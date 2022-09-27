@@ -25,45 +25,49 @@ export class AssetsRepository implements IAssetsRepository {
   async create(asset: Asset, file: IFileDTO): Promise<unknown> {
 
     const language = "en-US"
-    
+
     try {
       const upload = await this.client.upload.create({
         spaceId: this.space,
         environmentId: this.environment
       }, {
-        file: ''
+        file: file.buffer
       })
-      console.log(upload)
-      /*
-      await this.client.asset.createWithId({
+
+      const assetContentful = await this.client.asset.createWithId({
         assetId: asset.id,
         environmentId: this.environment,
         spaceId: this.space
       }, {
         fields: {
           title: {
-            [language]: 'Hello Title'
+            [language]: asset.title
           },
           description: {
-            [language]: 'Hello Description'
+            [language]: asset.description
           },
           file: {
             [language]: {
-              contentType: "image/jpg",
-              fileName: "friends.jpg",
+              contentType: asset.contentType,
+              fileName: file.originalname,
               uploadFrom: {
                 "sys": {
                   "type": "Link",
                   "linkType": "Upload",
-                  "id": upload.id
+                  "id": upload.sys.id
                 }
               }
             }
           }
         },
       })
-      */
-      return true
+
+      const process = await this.client.asset.processForAllLocales({
+        spaceId: this.space,
+        environmentId: this.environment
+      }, assetContentful)
+
+      return process
     } catch (e: any) {
       console.log(e)
       const error = JSON.parse(e.message)

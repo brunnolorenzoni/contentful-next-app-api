@@ -2,6 +2,7 @@ import { v4 } from 'uuid'
 
 export class Asset {
   public readonly id: string;
+  public title: string;
   public description: string;
   public contentType: string;
   public fileName: string;

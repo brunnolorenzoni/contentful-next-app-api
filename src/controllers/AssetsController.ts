@@ -9,15 +9,6 @@ export class AssetsController {
   ) { }
   
   async create (req: Request, res: Response, next: NextFunction): Promise<Response> {
-
-    const { title, description } = req.body
-
-    console.log({ title, description })
-    console.log(req.file)
-
-
-
-    return res.send('ok').status(201)
     try {
       const body : ICreateAssetRequestDTO = req.body
       const file : IFileDTO =  req.file

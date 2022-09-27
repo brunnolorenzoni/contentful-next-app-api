@@ -9,7 +9,8 @@ export class CreateAssetUseCase {
   ){}
 
   async execute(data: ICreateAssetRequestDTO, file: IFileDTO) {
-    const asset = new Asset({ ...data, contentType: ''})
+    console.log({data, file})
+    const asset = new Asset({ ...data, fileName: file.originalname, contentType: file.mimetype})
     return await this.assetsRepository.create(asset, file)
   }
 }
