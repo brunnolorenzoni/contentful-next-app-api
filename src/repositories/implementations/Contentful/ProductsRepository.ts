@@ -104,4 +104,41 @@ export class ProductsRepository implements IProductsRepository {
       throw new ApiError(error.message, error.status)
     }
   }
+
+  async publish (id: string) {
+    try {
+
+      const product = await this.client.entry.get({ 
+        environmentId: 'master',
+        spaceId: 'j9ffre4lp502',
+        entryId: id
+      })
+
+      return await this.client.entry.publish({
+        entryId: id,
+        environmentId: 'master',
+        spaceId: 'j9ffre4lp502'
+      }, product)
+
+    } catch (e: any) {
+      console.log(e)
+      const error = JSON.parse(e.message)
+      throw new ApiError(error.message, error.status)
+    }
+  }
+  async unpublish (id: string) {
+    try {
+
+      return await this.client.entry.unpublish({
+        entryId: id,
+        environmentId: 'master',
+        spaceId: 'j9ffre4lp502'
+      })
+
+    } catch (e: any) {
+      console.log(e)
+      const error = JSON.parse(e.message)
+      throw new ApiError(error.message, error.status)
+    }
+  }
 }

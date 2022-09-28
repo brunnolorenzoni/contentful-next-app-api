@@ -1,6 +1,7 @@
 import { ProductsRepository } from "../../repositories/implementations/Contentful/ProductsRepository";
 import { GetProductsUseCase } from "./GetProducts";
 import { CreateProductUseCase } from "./CreateProduct";
+import { PublishProductUseCase } from "./PublishProduct";
 
 import Contenful from '../../lib/Contenful'
 
@@ -15,4 +16,8 @@ const createProductUseCase = new CreateProductUseCase(
   productsRepository,
 )
 
-export { getProductsUseCase, createProductUseCase }
+const publishProductsUseCase = new PublishProductUseCase(
+  productsRepository,
+)
+
+export { getProductsUseCase, createProductUseCase, publishProductsUseCase }

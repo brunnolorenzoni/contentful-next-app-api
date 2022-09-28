@@ -1,5 +1,9 @@
 import Joi from 'joi'
 
+export const productPublishShema =Joi.object().keys({
+  id: Joi.string().uuid(),
+})
+
 export const productsFiltersSchema = Joi.object().keys({
   limit: Joi.number().min(1).optional(),
   skip: Joi.number().min(1).optional(),
