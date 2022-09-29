@@ -1,5 +1,5 @@
 import { IProductsRepository } from '../../IProductsRepository';
-import { PlainClientAPI, QueryOptions, EntryProps }  from 'contentful-management'
+import { PlainClientAPI, QueryOptions, CollectionProp, EntryProps }  from 'contentful-management'
 import { ApiError } from '../../../helpers/ApiError'
 import { Product } from 'entities/Product';
 
@@ -21,9 +21,10 @@ export class ProductsRepository implements IProductsRepository {
     this.environment = environment
   }
   
-  async findAll(filters?: QueryOptions): Promise<unknown> {
+  async findAll(filters?: QueryOptions): Promise<CollectionProp<EntryProps>> {
+    console.log(filters)
     try {
-      const result = await this.client.entry.getMany({
+      return await this.client.entry.getMany({
         environmentId: this.environment,
         spaceId: this.space,
         query: {
@@ -31,19 +32,13 @@ export class ProductsRepository implements IProductsRepository {
           ...filters
         }
       })
-      return {
-        limit: result.limit,
-        skip: result.skip,
-        total: result.total,
-        data: result.items
-      }
     } catch (e: any) {
       const error = JSON.parse(e.message)
       throw new ApiError(error.message, error.status)
     }
   }
 
-  async create(product: Product): Promise<unknown> {
+  async create(product: Product): Promise<EntryProps> {
 
     const language = "en-US"
 
@@ -84,6 +79,30 @@ export class ProductsRepository implements IProductsRepository {
         [language]: product.image.map((img) => ({
           sys: {
             id: img, 
+            linkType: "Asset", 
+            type: "Link"
+          }
+        }))
+      }
+    }
+
+    if(product.brand) {
+      data.fields.brand = {
+        [language]: {
+          sys: {
+            id: product.brand.id, 
+            linkType: "Entry", 
+            type: "Link"
+          }
+        }
+      }
+    }
+
+    if(product.categories && product.categories.length) {
+      data.fields.categories = {
+        [language]: product.categories.map((category) => ({
+          sys: {
+            id: category.id, 
             linkType: "Asset", 
             type: "Link"
           }

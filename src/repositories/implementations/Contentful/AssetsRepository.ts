@@ -1,5 +1,5 @@
 import { IAssetsRepository } from '../../IAssetsRepository';
-import { PlainClientAPI }  from 'contentful-management'
+import { PlainClientAPI, AssetProps }  from 'contentful-management'
 import { ApiError } from '../../../helpers/ApiError'
 import { Asset } from 'entities/Asset';
 import { IFileDTO } from 'interfaces/assets/dto';
@@ -21,8 +21,19 @@ export class AssetsRepository implements IAssetsRepository {
     this.space = space
     this.environment = environment
   }
+
+  async getAssets(ids: string[]): Promise<AssetProps[] | []> {
+    const assets = await this.client.asset.getMany({
+      spaceId: this.space,
+      environmentId: this.environment,
+      query: {
+        'sys.id': ids.join(',')
+      }
+    })
+    return assets.items
+  }
   
-  async create(asset: Asset, file: IFileDTO): Promise<unknown> {
+  async create(asset: Asset, file: IFileDTO): Promise<AssetProps> {
 
     const language = "en-US"
 

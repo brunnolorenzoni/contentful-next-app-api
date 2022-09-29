@@ -1,8 +1,9 @@
+import { CollectionProp, EntryProps, QueryParams }  from 'contentful-management'
 import { Product } from "entities/Product";
 
 export interface IProductsRepository {
-  findAll(filters?: unknown): Promise<unknown>;
-  create(product?: Product): Promise<unknown>;
+  findAll(filters?: QueryParams): Promise<CollectionProp<EntryProps>>;
+  create(product: Product): Promise<EntryProps>;
   publish(id: string): Promise<unknown>;
   unpublish(id: string): Promise<unknown>;
 }

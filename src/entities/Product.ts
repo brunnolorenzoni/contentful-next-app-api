@@ -2,7 +2,6 @@ import { v4 } from 'uuid'
 import { Asset } from './Asset';
 import { Brand } from './Brand';
 import { Category } from './Category';
-
 export class Product {
   public readonly id: string;
   public productName: string
@@ -18,7 +17,7 @@ export class Product {
   public sku: string
   public website: string
 
-  constructor(props: Omit<Product, 'id' | 'image' | 'categories' | 'brand'>, id?: string) {
+  constructor(props: Omit<Product, 'id' >, id?: string) {
     Object.assign(this, props);
 
     if (!id) {
