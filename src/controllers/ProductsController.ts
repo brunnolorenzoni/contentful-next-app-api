@@ -14,12 +14,7 @@ export class ProductController {
   
   async index (req: Request, res: Response, next: NextFunction): Promise<Response> {
     try {
-      const limit: number = req.query.limit ? parseInt(req.query.limit as string) : null
-      const skip: number = req.query.skip ? parseInt(req.query.skip as string) : null
-      const order: string = req.query.order ? req.query.order as string: null
-      const include: number = req.query.include ? parseInt(req.query.include as string) : null
-
-      const result = await this.getProductsUseCase.execute({ limit, skip, order, include })
+      const result = await this.getProductsUseCase.execute(req.query)
       return res.json(result).status(200)
     } catch (e) {
       next(e)

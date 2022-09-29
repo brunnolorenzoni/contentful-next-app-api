@@ -22,7 +22,6 @@ export class ProductsRepository implements IProductsRepository {
   }
   
   async findAll(filters?: QueryOptions): Promise<CollectionProp<EntryProps>> {
-    console.log(filters)
     try {
       return await this.client.entry.getMany({
         environmentId: this.environment,
