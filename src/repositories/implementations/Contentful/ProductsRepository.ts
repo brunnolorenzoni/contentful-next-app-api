@@ -77,7 +77,7 @@ export class ProductsRepository implements IProductsRepository {
       data.fields.image = {
         [language]: product.image.map((img) => ({
           sys: {
-            id: img, 
+            id: img.id, 
             linkType: "Asset", 
             type: "Link"
           }
@@ -102,7 +102,7 @@ export class ProductsRepository implements IProductsRepository {
         [language]: product.categories.map((category) => ({
           sys: {
             id: category.id, 
-            linkType: "Asset", 
+            linkType: "Entry", 
             type: "Link"
           }
         }))

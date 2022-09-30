@@ -44,12 +44,13 @@ export class CreateProductUseCase {
       for (const category of categories) {
         categoriesRef.push(new Category(
           {
+            id: category.sys.id,
             title: category.fields.title['en-US'],
             image: new Asset({id: category.fields.image['en-US'].sys.id}),
             categoryDescription: category.fields.categoryDescription['en-US'],
             slug: category.fields.slug['en-US']
           }
-        ), category.sys.id)
+        ))
       }
     }
     let brandRef: Brand;
